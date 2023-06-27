@@ -1,12 +1,14 @@
 package com.rpg.rpgsystem.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.rpg.rpgsystem.entities.pk.CharacterJob;
+import com.rpg.rpgsystem.entities.pk.UserCharacter;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -38,4 +40,10 @@ public class CharacterEntity {
 
     @Column(name = "race")
     private String race;
+
+    @OneToMany(mappedBy = "character", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UserCharacter> usersCharacters;
+
+    @OneToMany(mappedBy = "character", fetch = FetchType.LAZY)
+    private Set<CharacterJob> charactersJobs;
 }
